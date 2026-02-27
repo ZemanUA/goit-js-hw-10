@@ -15,12 +15,11 @@ const dataHours = document.querySelector("[data-hours]");
 const dataMinutes = document.querySelector("[data-minutes]");
 const dataSeconds = document.querySelector("[data-seconds]");
 
+let change = null;
 
 
-
-function switchButton(date, diff = null){
-    if(date && diff === null){
-    console.log(diff); 
+function switchButton(date, change){
+    if(date && change ){
     button.disabled = false;
     timer.disabled = false;
     button.style.backgroundColor  = "rgb(21, 61, 236)";
@@ -28,8 +27,7 @@ function switchButton(date, diff = null){
     button.style.cursor = "pointer";
     return;
     }
-    if(date && diff != null){
-    console.log(diff);
+    if(date && !change ){
     button.disabled = true;
     timer.disabled = false;
     button.style.backgroundColor  = "#cfcfcf";
@@ -58,11 +56,14 @@ const options = {
             message: "Please choose a date in the future",
             position: "topRight",
         });
+          change = false;
+        switchButton(selectedDates[0], change);
         return;
     }
+    change = true;
     userSelectedDate = selectedDates[0];
-    switchButton(selectedDates);
-    console.log(selectedDates[0]);
+    switchButton(selectedDates[0], change);
+    // console.log(selectedDates[0]);
   },
 };
 
@@ -105,7 +106,8 @@ function handleClick(){
     dataMinutes.textContent = "00";
     dataHours.textContent = "00";
     dataDays.textContent = "00";
-    switchButton(userSelectedDate, diff);
+
+    switchButton(userSelectedDate);
     return;
 
   }
