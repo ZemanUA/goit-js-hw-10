@@ -16,7 +16,7 @@ const dataMinutes = document.querySelector("[data-minutes]");
 const dataSeconds = document.querySelector("[data-seconds]");
 
 let change = null;
-
+button.disabled = true;
 
 function switchButton(date, change){
     if(date && change ){
