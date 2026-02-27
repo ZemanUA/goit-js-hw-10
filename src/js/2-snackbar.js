@@ -30,7 +30,8 @@ function formSubmit(event){
                 position: "topCenter",
                 message: `✅ Fulfilled promise in ${value}ms`,
             })
-        },(value) => {
+        })
+        .catch((value) => {
             console.log(`❌ Rejected promise in ${value}ms`);
             iziToast.error({
                 title: 'Fail',

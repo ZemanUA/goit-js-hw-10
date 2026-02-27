@@ -18,15 +18,25 @@ const dataSeconds = document.querySelector("[data-seconds]");
 
 
 
-function switchButton(date){
-    if(date){
+function switchButton(date, diff = null){
+    if(date && diff === null){
+    console.log(diff); 
     button.disabled = false;
     timer.disabled = false;
     button.style.backgroundColor  = "rgb(21, 61, 236)";
     button.style.color = "rgb(255, 255, 255)"; 
     button.style.cursor = "pointer";
     return;
-    }  
+    }
+    if(date && diff != null){
+    console.log(diff);
+    button.disabled = true;
+    timer.disabled = false;
+    button.style.backgroundColor  = "#cfcfcf";
+    button.style.color = "#989898";
+    button.style.cursor = "default";
+    return;
+    }
     button.disabled = true;
     timer.disabled = true;
     button.style.backgroundColor  = "#cfcfcf";
@@ -79,6 +89,9 @@ function convertMs(ms) {
 
 button.addEventListener("click", handleClick);
 
+ function addZero(value){
+  return String(value).padStart(2, '0');
+}
 function handleClick(){
  if(!userSelectedDate){
   switchButton(userSelectedDate);
@@ -92,15 +105,16 @@ function handleClick(){
     dataMinutes.textContent = "00";
     dataHours.textContent = "00";
     dataDays.textContent = "00";
-    switchButton(userSelectedDate);
+    switchButton(userSelectedDate, diff);
     return;
 
   }
   const {days , hours, minutes, seconds} = convertMs(diff);
-    dataSeconds.textContent = seconds;
-    dataMinutes.textContent = minutes;
-    dataHours.textContent = hours;
-    dataDays.textContent = days;
+    dataSeconds.textContent = addZero(seconds);
+    dataMinutes.textContent = addZero(minutes);
+    dataHours.textContent = addZero(hours);
+    dataDays.textContent = addZero(days);
     }, 1000);
     switchButton(null);
 }
+
